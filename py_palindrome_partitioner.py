@@ -6,7 +6,7 @@
 #    By: jkrishna <jkrishna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/10/31 12:07:34 by jkrishna          #+#    #+#              #
-#    Updated: 2026/10/31 12:43:43 by jkrishna         ###   ########.fr        #
+#    Updated: 2026/10/31 12:49:25 by jkrishna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,14 +16,18 @@ def rev_test(s):
             return False
     return True
 
+
 def reverse(s):
     new_s = ''
     for i in s:
         new_s = i + new_s
+    return new_s
+
 
 def palindrome_partitioner(s: str) -> int:
     cuts = 0
     limit = len(s)
+    list = []
     if rev_test(s):
         return 0
     while i < 0:
