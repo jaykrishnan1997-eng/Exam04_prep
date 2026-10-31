@@ -6,39 +6,54 @@
 #    By: jkrishna <jkrishna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/10/31 12:07:34 by jkrishna          #+#    #+#              #
-#    Updated: 2026/10/31 12:49:25 by jkrishna         ###   ########.fr        #
+#    Updated: 2026/10/31 13:51:31 by jkrishna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 def rev_test(s):
-    for i in range(0, len(s)):
+    i = 0
+    while i < len(s) / 2:
         if s[i] != s[len(s) - 1 - i]:
             return False
+        i += 1
     return True
 
 
-def reverse(s):
-    new_s = ''
-    for i in s:
-        new_s = i + new_s
-    return new_s
+# def reverse(s):
+#     new_s = ''
+#     for i in s:
+#         new_s = i + new_s
+#     return new_s
 
 
 def palindrome_partitioner(s: str) -> int:
-    cuts = 0
-    limit = len(s)
-    list = []
+    start = 0
+    stop = 1
+    leng = len(s)
+    accepted_list = []
+    temp = ""
     if rev_test(s):
         return 0
-    while i < 0:
-        if reverse(s[i:len(s) - 1 - i]) == s[:limit]:
-            return cuts
-        else:
-            cuts += 1
-            limit -= 1
-    return cuts
+
+    while start < leng:
+        while stop <= leng:
+            if rev_test(s[start:stop]):
+                # print(s[start:stop])
+                if len(temp) < len(s[start:stop]):
+                    temp = s[start:stop]
+            stop += 1
+        accepted_list.append(temp)
+        # breakpoint()
+        start += (len(temp))
+        if start >= leng:
+            break
+        stop = start + 1
+        temp = ""
+    return (len(accepted_list) - 1)
+
 
 if __name__ == "__main__":
+    # print(rev_test("aba"))
     print(palindrome_partitioner("aab"))  # Expected: 1
     print(palindrome_partitioner("aba"))  # Expected: 0
     print(palindrome_partitioner("abc"))  # Expected: 2
