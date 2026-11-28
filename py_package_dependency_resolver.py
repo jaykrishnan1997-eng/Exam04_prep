@@ -1,3 +1,43 @@
+#!/usr/bin/env python3
+# ########################################################################### #
+#   shebang: 1                                                                #
+#                                                          :::      ::::::::  #
+#   py_package_dependency_resolver.py                    :+:      :+:    :+:  #
+#                                                      +:+ +:+         +:+    #
+#   By: jay-k <jay-k@student.42.fr>                  +#+  +:+       +#+       #
+#                                                  +#+#+#+#+#+   +#+          #
+#   Created: 2026/11/28 10:33:42 by jay-k               #+#    #+#            #
+#   Updated: 2026/11/28 11:37:11 by jay-k              ###   ########.fr      #
+#                                                                             #
+# ########################################################################### #
+
+
+def package_dependency_resolver(packages: dict[str, list[str]]) -> list[str]:
+
+    result = []
+    indegree = {pkg: 0 for pkg in packages}
+    graph = {pkg: [] for pkg in packages}
+
+    for pkg, deps in packages.items():
+        for dep in deps:
+            if dep in packages:
+                graph[dep].append(pkg)
+                indegree[pkg] += 1
+    
+    ready = sorted([pkg for pkg in packages if indegree[pkg] == 0])
+
+    while ready:
+        pkg = ready.pop(0)
+        result.append(pkg)
+
+        for neighbor in sorted(graph[pkg]):
+            indegree[neighbor] -= 1
+            if indegree[neighbor] == 0:
+                ready.append(neighbor)
+
+    if len(result) != len(packages):
+        return []
+    return result
 
 # def package_dependency_resolver(packages: dict[str, list[str]]) -> list[str]:
 #     result = []
