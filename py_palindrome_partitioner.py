@@ -1,40 +1,67 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    py_palindrome_partitioner.py                       :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: jkrishna <jkrishna@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/10/31 12:07:34 by jkrishna          #+#    #+#              #
-#    Updated: 2026/11/02 10:14:28 by jkrishna         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+#!/usr/bin/env python3
+# ########################################################################### #
+#   shebang: 1                                                                #
+#                                                          :::      ::::::::  #
+#   py_palindrome_partitioner.py                         :+:      :+:    :+:  #
+#                                                      +:+ +:+         +:+    #
+#   By: jay-k <jay-k@student.42.fr>                  +#+  +:+       +#+       #
+#                                                  +#+#+#+#+#+   +#+          #
+#   Created: 2026/10/31 12:07:34 by jkrishna            #+#    #+#            #
+#   Updated: 2026/11/28 11:38:14 by jay-k              ###   ########.fr      #
+#                                                                             #
+# ########################################################################### #
 
-def rev_test(s):
+def _rev(arr):
     i = 0
-    while i < len(s) // 2:
-        if s[i] != s[len(s) - 1 - i]:
+    while i < len(arr) // 2:
+        if arr[i] != arr[len(arr) - 1 - i]:
             return False
         i += 1
     return True
 
 
 def palindrome_partitioner(s: str) -> int:
-
-    leng = len(s)
-
-    if rev_test(s):
+    l = len(s)
+    if _rev(s) == 0:
         return 0
-    # dp is minimum cuts required for first i characters
-    dp = [float('inf')] * (leng + 1)
-    dp[0] = -1
+    df = [float('inf')] * (l + 1)
+    df[0] = -1
 
-    for i in range(1, leng + 1):
-        for j in range(i):
-            if rev_test(s[j:i]):
-                if (dp[j] + 1) < dp[i]:
-                    dp[i] = dp[j] + 1
-    return dp[leng]
+    for i in range(0, l + 1):
+        for j in range(j):
+            if _rev(s[j:i]):
+                if df[i] > df[j] + 1:
+                    df[i] = df[j] + 1
+ 
+    return df[l]
+
+
+
+# def rev_test(s):
+#     i = 0
+#     while i < len(s) // 2:
+#         if s[i] != s[len(s) - 1 - i]:
+#             return False
+#         i += 1
+#     return True
+
+
+# def palindrome_partitioner(s: str) -> int:
+
+#     leng = len(s)
+
+#     if rev_test(s):
+#         return 0
+#     # dp is minimum cuts required for first i characters
+#     dp = [float('inf')] * (leng + 1)
+#     dp[0] = -1
+
+#     for i in range(1, leng + 1):
+#         for j in range(i):
+#             if rev_test(s[j:i]):
+#                 if (dp[j] + 1) < dp[i]:
+#                     dp[i] = dp[j] + 1
+#     return dp[leng]
 
 
 # def reverse(s):
